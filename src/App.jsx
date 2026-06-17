@@ -25,7 +25,7 @@ function JoinPage() {
       branch_id: '867b7d6a-8e6d-475b-9ab2-0768977fb5d4'
     })
     if (error) return alert('حدث خطأ: ' + error.message)
-    setDone(true)
+    await fetch('/api/send-sms', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ to: phon
   }
 
   if (done) return (
