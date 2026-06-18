@@ -26,7 +26,7 @@ function JoinPage() {
       party_size: partySize,
       branch_id: '867b7d6a-8e6d-475b-9ab2-0768977fb5d4'
     })
-    if (error) return alert('حدث خطأ: ' + error.message)
+    if (error) console.log('Supabase error:', error.message)
     await fetch('/api/send-sms', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
