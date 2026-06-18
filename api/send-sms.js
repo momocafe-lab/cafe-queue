@@ -1,15 +1,23 @@
-import twilio from 'twilio';
-
-const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
-
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end()
   const { to, message } = req.body
   try {
-    await client.messages.create({ body: message, from: process.env.TWILIO_PHONE_NUMBER, to: to })
+    const response = await fetch('https://api.tawasolsms.com/api/SMSServices/Sendsms', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: process.env.TAWASOL_USERNAME,
+        password: process.env.TAWASOL_PASSWORD,
+        mobile: to,
+        message: message,
+        sender: process.env.TAWASOL_SENDER
+      })
+    })
+    const data = await response.json()
+    console.log('Tawasol response:', JSON.stringify(data))
     res.status(200).json({ success: true })
   } catch (error) {
-   console.log('Twilio error:', error.message)
-  res.status(500).json({ error: error.message })
+    console.log('Tawasol error:', error.message)
+    res.status(500).json({ error: error.message })
   }
 }
