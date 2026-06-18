@@ -2,7 +2,7 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end()
   const { to, message } = req.body
   try {
-    const response = await fetch('https://api.tawasolsms.com/api/SMSServices/Sendsms', {
+    const response = await fetch('https://www.tawasolsms.com/api/SMSServices/Sendsms', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
